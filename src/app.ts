@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.get('/',(req:Request,res:Response)=>{
     res.send({
-        Message:"Health care Server..."
+        Message:"Bike Server  Server..."
     })
 })
 // app.use('/api/v1',router);
