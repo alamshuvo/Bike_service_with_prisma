@@ -6,6 +6,11 @@ const createCustomer = async(payload:Customer)=>{
   return result
 }
 
+const getAllCustomers = async()=>{
+    const result = await prisma.customer.findMany();
+    return result
+}
 export const customerServices = {
-    createCustomer
+    createCustomer,
+    getAllCustomers
 }
