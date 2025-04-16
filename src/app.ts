@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 
 import cookieParser from 'cookie-parser'
+import router from './app/routes';
 const app:Application = express();
 
 app.use(cors());
@@ -14,7 +15,7 @@ app.get('/',(req:Request,res:Response)=>{
         Message:"Bike Server  Server..."
     })
 })
-// app.use('/api/v1',router);
+ app.use('/api',router);
 // app.use(globalErrorHandler);
 
 // app.use(notFound)
