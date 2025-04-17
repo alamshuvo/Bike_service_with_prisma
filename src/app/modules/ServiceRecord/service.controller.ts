@@ -35,9 +35,22 @@ const getSingleServicesRecord = catchAsync(
     });
   }
 );
+const updateSingleServicesRecord = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const data = req.body
+    const result = await ServiceRecordServices.updateSingleServicesRecord(id,data||{});
+    sendResponse(res, StatusCodes.OK, {
+      success: true,
+      message: "service record fetched successfully",
+      data: result,
+    });
+  }
+);
 
 export const serviceRecordController = {
   createServiceRecord,
   getAllServiceRecord,
   getSingleServicesRecord,
+  updateSingleServicesRecord
 };

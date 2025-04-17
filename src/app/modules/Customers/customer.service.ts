@@ -1,6 +1,7 @@
 import { Customer } from "../../../generated/prisma";
 import { prisma } from "../../../shared/prisma";
-
+import AppError from "../../error/AppError";
+import { StatusCodes } from "http-status-codes";
 const createCustomer = async (payload: Customer) => {
   const result = await prisma.customer.create({ data: payload });
   return result;
@@ -12,20 +13,26 @@ const getAllCustomers = async () => {
 };
 
 const getSingleCustomers = async (id: string) => {
-  const result = await prisma.customer.findUniqueOrThrow({
+  const result = await prisma.customer.findUnique({
     where: {
       customerId: id,
     },
   });
+  if (!result) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Customer not found")
+  }
   return result;
 };
 
 const updateSingleCustomer = async (id: string, payload:Partial<Customer>) => {
- await prisma.customer.findUniqueOrThrow({
+ const result =  await prisma.customer.findUnique({
     where: {
       customerId: id,
     },
   });
+  if (!result) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Customer not found")
+  }
   const updatedData = await prisma.customer.update({
     where: { customerId: id },
     data: payload,
@@ -34,11 +41,14 @@ const updateSingleCustomer = async (id: string, payload:Partial<Customer>) => {
 };
 
 const deleteSingleCustomer = async (id:string)=>{
-  await prisma.customer.findUniqueOrThrow({
+ const resulta =  await prisma.customer.findUnique({
     where:{
         customerId:id
     }
   })
+  if (!resulta) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Customer not found")
+  }
   const result = await prisma.$transaction(async(tx)=>{
     const customerDeletedData = await tx.customer.delete({
       where:{customerId:id}
