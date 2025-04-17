@@ -6,7 +6,7 @@
 This backend project is designed to manage a bike servicing center's operations efficiently. It handles customer information, bike details, and service records using a relational database structure. The system allows admins or service staff to track service progress, manage customer profiles, and store service history for each bike.
 
 ** Live Backend Link:**  
-➡️ [https://bike-service-backend-eta.vercel.app](https://bike-service-backend-eta.vercel.app)
+➡️ [https://bikeservice-nu.vercel.app]
 
 ---
 
@@ -23,7 +23,7 @@ This backend project is designed to manage a bike servicing center's operations 
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/your-username/bike-servicing-backend.git
+   git clone https://github.com/alamshuvo/Bike_service_with_prisma.git
    cd bike-servicing-backend
 
 2. Install Dependencies

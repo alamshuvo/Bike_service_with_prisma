@@ -1,6 +1,6 @@
 import express from "express";
 import { serviceRecordController } from "./service.controller";
-import validateRequest from "../../middleware/validateRequest";
+
 
 
 const router = express.Router();
