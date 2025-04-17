@@ -48,9 +48,23 @@ const updateSingleServicesRecord = catchAsync(
   }
 );
 
+
+const getPendingOrOverDueServiceRecord = catchAsync(
+  async (req: Request, res: Response) => {
+    
+    const result = await ServiceRecordServices.getPendingOrOverDueServiceRecord();
+    sendResponse(res, StatusCodes.OK, {
+      success: true,
+      message: "Overdue or pending services fetched successfully",
+      data: result,
+    });
+  }
+);
+
 export const serviceRecordController = {
   createServiceRecord,
   getAllServiceRecord,
   getSingleServicesRecord,
-  updateSingleServicesRecord
+  updateSingleServicesRecord,
+  getPendingOrOverDueServiceRecord
 };

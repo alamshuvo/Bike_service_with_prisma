@@ -4,6 +4,7 @@ import { prisma } from "../../../shared/prisma";
 import AppError from "../../error/AppError";
 
 const createServiceRecord = async (payload: ServiceRecord) => {
+  console.log(payload);
   const result = await prisma.serviceRecord.create({ data: payload });
   return result;
 };
@@ -36,19 +37,45 @@ const updateSingleServicesRecord = async (
   }
   const completionDate = payload.completionDate ?? new Date();
   const result = await prisma.serviceRecord.update({
-    where:{
-      serviceId:id
+    where: {
+      serviceId: id,
     },
-    data:{
-      status:Status.done,
-      completionDate
-    }
+    data: {
+      status: Status.done,
+      completionDate,
+    },
   });
   return result;
 };
+
+const getPendingOrOverDueServiceRecord = async () => {
+  const pastDate = new Date();
+  pastDate.setDate(pastDate.getDate() - 7);
+
+  const result = await prisma.serviceRecord.findMany({
+    where: {
+      OR: [
+        {
+          status: {
+            in: [Status.pending, Status.in_progress],
+          },
+        },
+        {
+          serviceDate: {
+            lt: pastDate,
+          },
+        },
+      ],
+    },
+  });
+
+  return result;
+};
+
 export const ServiceRecordServices = {
   createServiceRecord,
   getAllServices,
   getSingleServices,
   updateSingleServicesRecord,
+  getPendingOrOverDueServiceRecord,
 };
