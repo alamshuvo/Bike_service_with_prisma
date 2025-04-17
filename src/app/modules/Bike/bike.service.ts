@@ -1,4 +1,4 @@
-import { Bike, Customer } from "../../../generated/prisma";
+import { Bike} from "../../../generated/prisma";
 import { prisma } from "../../../shared/prisma";
 
 const createBike = async (payload: Bike) => {

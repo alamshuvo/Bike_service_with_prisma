@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('PENDING', 'IN_PROGRESS', 'DONE');
+CREATE TYPE "Status" AS ENUM ('pending', 'in_progress', 'done');
 
 -- CreateTable
 CREATE TABLE "Customers" (
@@ -30,7 +30,7 @@ CREATE TABLE "ServiceRecords" (
     "serviceDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "completionDate" TIMESTAMP(3),
     "description" TEXT NOT NULL,
-    "status" "Status" NOT NULL DEFAULT 'PENDING',
+    "status" "Status" NOT NULL DEFAULT 'pending',
 
     CONSTRAINT "ServiceRecords_pkey" PRIMARY KEY ("serviceId")
 );
