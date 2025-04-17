@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import cookieParser from 'cookie-parser'
 import router from './app/routes';
+import notFound from './app/middleware/notFoundRoute';
 const app:Application = express();
 
 app.use(cors());
@@ -18,5 +19,5 @@ app.get('/',(req:Request,res:Response)=>{
  app.use('/api',router);
 // app.use(globalErrorHandler);
 
-// app.use(notFound)
+app.use(notFound)
 export default app ;
