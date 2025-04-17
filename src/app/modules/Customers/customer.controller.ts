@@ -42,11 +42,19 @@ const updateSingleCustomer = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-
+const deleteSingleCustomer = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+ await customerServices.deleteSingleCustomer(id);
+  sendResponse(res, StatusCodes.OK, {
+    success: true,
+    message: "Customer updated successfully",
+  });
+});
 
 export const customerController = {
   createCustomer,
   getAllCustomer,
   getSingleCustomer,
-  updateSingleCustomer
+  updateSingleCustomer,
+  deleteSingleCustomer
 };

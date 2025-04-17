@@ -20,8 +20,8 @@ const getSingleCustomers = async (id: string) => {
   return result;
 };
 
-const updateSingleCustomer = async (id: string, payload: any) => {
-  const isCustomerExist = await prisma.customer.findUniqueOrThrow({
+const updateSingleCustomer = async (id: string, payload:Partial<Customer>) => {
+ await prisma.customer.findUniqueOrThrow({
     where: {
       customerId: id,
     },
@@ -32,9 +32,31 @@ const updateSingleCustomer = async (id: string, payload: any) => {
   });
   return updatedData
 };
+
+const deleteSingleCustomer = async (id:string)=>{
+  await prisma.customer.findUniqueOrThrow({
+    where:{
+        customerId:id
+    }
+  })
+  const result = await prisma.$transaction(async(tx)=>{
+    const customerDeletedData = await tx.customer.delete({
+      where:{customerId:id}
+    })
+    const bikeDeletedData = await tx.bike.deleteMany({
+      where: {
+        customerId: id
+      }
+    })
+    return customerDeletedData
+   })
+  
+   return result;
+}
 export const customerServices = {
   createCustomer,
   getAllCustomers,
   getSingleCustomers,
   updateSingleCustomer,
+  deleteSingleCustomer
 };

@@ -6,7 +6,7 @@ const sendResponse = <T>(
   jsonData: {
     success: boolean;
     message: string;
-    data: T | null | undefined | T[];
+    data?: T | null | undefined | T[];
   }
 ) => {
   const { success, message, data } = jsonData;
